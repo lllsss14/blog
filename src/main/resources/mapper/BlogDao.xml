@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhm.dao.BlogDao">
+    <resultMap id="blog" type="BlogInfo">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="flag" column="flag"/>
+        <result property="views" column="views"/>
+        <result property="update_time" column="update_time"/>
+        <result property="picture" column="picture"/>
+        <result property="copyright" column="copyright"/>
+        <result property="published" column="published"/>
+        <result property="appreciation" column="appreciation"/>
+        <result property="commented" column="commented"/>
+        <result property="recommend" column="recommend"/>
+        <result property="create_time" column="create_time"/>
+        <result property="typeId" column="type_id"/>
+        <result property="userId" column="user_id"/>
+        <association property="type" javaType="Type">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </association>
+        <association property="user" javaType="User">
+            <id property="id" column="id"/>
+            <result property="nickname" column="nickname"/>
+            <result property="username" column="username"/>
+            <result property="email" column="email"/>
+            <result property="avatar" column="avatar"/>
+        </association>
+        <collection property="tags" ofType="Tag">
+            <id property="id" column="id"/>
+            <result property="name" column="id"/>
+        </collection>
+    </resultMap>
+
+    <select id="findById" parameterType="Long" resultMap="blog">
+        select * from t_blog where id=#{id}
+    </select>
+
+    <select id="getAll" resultMap="blog">
+        select b.*,t.name from t_blog b,t_type t where b.type_id=t.id
+    </select>
+
+    <select id="findAll" parameterType="BlogInfo" resultMap="blog">
+        select b.*,t.name from t_blog b,t_type t
+        <where>
+            <if test="1==1">b.type_id=t.id</if>
+            <if test="title !=null and title!=''">and b.title like concat('%',#{title},'%')</if>/*根据标题查*/
+            <if test="typeId != null and typeId != ''">and b.type_id=#{typeId}</if> /*根据类型查全部*/
+            <if test="recommend !=null and recommend != '' and recommend ==true">and b.recommend=#{recommend}</if> /*根据博客推荐查询*/
+
+        </where>
+    </select>
+    <!--useGeneratedKeys使用自增主键获取主键值策略
+        keyProperty:指定对应的主键属性，在mybatis获取到主键值以后，将这个值封装给javaBean的哪个属性
+        一般都是结合数据库自动生成主键来使用，由于是数据库生成的主键，
+        所以在这个对象持久化到数据库之前是对象中的这个属性是没有属性值的
+        ，但是在持久化之后又想使用这个主键， 出现这样的情况时可以keyProperty="id"
+    -->
+    <insert id="saveBlog" parameterType="BlogInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into t_blog (title, content, picture, flag,
+        views, appreciation, copyright,commented,published,
+        recommend, create_time, update_time, type_id, user_id)
+        values (#{title}, #{content}, #{picture}, #{flag}, #{views}, #{appreciation},
+        #{copyright}, #{commented}, #{published}, #{recommend}, #{create_time},
+        #{update_time}, #{typeId},#{userId});
+    </insert>
+
+    <update id="updateBlog" parameterType="BlogInfo">
+        update t_blog set published = #{published},flag = #{flag} ,
+        title = #{title}, content = #{content}, type_id = #{typeId},
+        picture = #{picture} , recommend = #{recommend} ,
+        copyright = #{copyright}, appreciation = #{appreciation},
+        commented = #{commented} ,update_time = #{update_time} where id = #{id};
+    </update>
+    
+    <delete id="deleteBlog">
+        delete from t_blog where id=#{id}
+    </delete>
+    
+
+
+</mapper>
