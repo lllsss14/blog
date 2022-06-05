@@ -5,6 +5,7 @@ package com.jhm.pojo;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ public class User {
     private Timestamp update_time;
 
 
-    private List<BlogInfo> blogInfos;
+    private List<BlogInfo> blogInfos=new ArrayList<>();
 
     public User() {
     }

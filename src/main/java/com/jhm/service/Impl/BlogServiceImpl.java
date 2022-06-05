@@ -4,14 +4,15 @@ import com.jhm.NotFindException;
 import com.jhm.dao.BlogDao;
 import com.jhm.pojo.BlogInfo;
 import com.jhm.service.BlogService;
+import com.jhm.util.MarkdownUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 @Service
 public class BlogServiceImpl implements BlogService {
     @Autowired
@@ -43,6 +44,20 @@ public class BlogServiceImpl implements BlogService {
         return blogDao.saveBlog(blogInfo);
 
     }
+    /*前台获得博客详情*/
+    @Override
+    public BlogInfo getAndConvert(Long id) {
+        BlogInfo blogInfo=blogDao.getDetailedBlog(id);
+        String content=blogInfo.getContent();
+        /*编辑插件做一次转换，将Markdown格式转换成html*/
+        blogInfo.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
+        return blogInfo;
+    }
+
+    @Override
+    public List<BlogInfo> getAllRecommendBlog() {
+        return blogDao.findAllRecommendBlog();
+    }
 
     /*更新博客*/
     @Transactional
@@ -64,4 +79,38 @@ public class BlogServiceImpl implements BlogService {
     public void deleteBlog(Long id) {
         blogDao.deleteBlog(id);
     }
+
+    @Override
+    public List<BlogInfo> getIndexBlog() {
+        return blogDao.getIndexBlog();
+    }
+
+    @Override
+    public BlogInfo findBlogWithTag(Long id) {
+        System.out.println(blogDao.findBlogWithTag(id).getTags());
+        return blogDao.findBlogWithTag(id);
+    }
+
+    @Override
+    public List<BlogInfo> getByTypeId(Long typeId) {
+        return blogDao.getByTypeId(typeId);
+    }
+
+    @Override
+    public Map<String, List<BlogInfo>> archiveBlog() {
+        List<String> years = blogDao.findGroupYear();
+        Set<String> set = new HashSet<>(years);  /*用set去掉重复的年份*/
+        Map<String, List<BlogInfo>> map = new HashMap<>();
+        for (String year : set) {
+            map.put(year, blogDao.findByYear(year));
+        }
+        return map;
+    }
+
+    @Override
+    public int countBlog() {
+        return blogDao.getAll().size();
+    }
+
+
 }

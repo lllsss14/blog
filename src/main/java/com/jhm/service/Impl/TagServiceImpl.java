@@ -1,6 +1,7 @@
 package com.jhm.service.Impl;
 
 import com.jhm.dao.TagDao;
+import com.jhm.pojo.BlogInfo;
 import com.jhm.pojo.Tag;
 import com.jhm.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,12 @@ public class TagServiceImpl implements TagService {
         }
         return tags;
     }
+
+    @Override
+    public List<Tag> getBlogTag() {
+        return tagDao.getBlogTag();
+    }
+
     private List<Long> convertToList(String ids) {  /*把前端的tagIds字符串转换为list集合*/
         List<Long> list = new ArrayList<>();
         if (!"".equals(ids) && ids != null) {

@@ -1,6 +1,7 @@
 package com.jhm.dao;
 
 
+import com.jhm.pojo.BlogInfo;
 import com.jhm.pojo.Tag;
 import com.jhm.pojo.Type;
 import org.apache.ibatis.annotations.*;
@@ -23,5 +24,8 @@ public interface TagDao {
     @Delete("delete from t_tag where id=#{id}")
     public void delete(Long id);
 
-
+    /*获得首页博客标签*/
+    public List<Tag> getBlogTag();
+    /*后台进入编辑博客页面，根据博客表、标签表多对多查询查询*/
+    public List<Tag> findTagById(Long id);
 }

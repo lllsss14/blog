@@ -1,5 +1,6 @@
 package com.jhm.service;
 
+import com.jhm.pojo.BlogInfo;
 import com.jhm.pojo.Tag;
 import com.jhm.pojo.Type;
 
@@ -15,4 +16,8 @@ public interface TagService {
     public int updateTag(Tag tag);
     public void deleteTag(Long id);
     public List<Tag> getTagByString(String text);
+
+
+    /*获得首页博客标签*/
+    public List<Tag> getBlogTag();
 }

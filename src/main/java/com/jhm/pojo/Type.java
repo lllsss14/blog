@@ -4,6 +4,7 @@ package com.jhm.pojo;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,7 +14,7 @@ public class Type {
     @NotNull(message = "分类名字不能为空")
     private String name;
 
-    private List<BlogInfo> blogInfos;
+    private List<BlogInfo> blogInfos=new ArrayList<>();
     public Type() {
     }
 
@@ -22,6 +23,7 @@ public class Type {
         return "Type{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", blogInfos=" + blogInfos +
                 '}';
     }
 }

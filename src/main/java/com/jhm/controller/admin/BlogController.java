@@ -3,6 +3,7 @@ package com.jhm.controller.admin;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jhm.pojo.BlogInfo;
+import com.jhm.pojo.Tag;
 import com.jhm.pojo.User;
 import com.jhm.service.BlogService;
 import com.jhm.service.TagService;
@@ -32,6 +33,7 @@ public class BlogController {
     private TypeService typeService;
     @Autowired
     private TagService tagService;
+
 
 
     /*TODO 前端点击按钮，按钮href地址对应/admin，进入后台主页，然后从数据库中拿到blog信息model返回给前端，
@@ -82,6 +84,7 @@ public class BlogController {
         blogInfo.setUser((User) session.getAttribute("user"));
         /*TODO 设置博客类型，在BlogInfo里面type是Type对象,在admin-input页面由一个name="type.id"的input，
            当,前端会自动赋值到BlogInfo对象里面的Type type对象里*/
+        blogInfo.setUserId((long) 1);
         blogInfo.setType(typeService.getType(blogInfo.getType().getId()));
         blogInfo.setTypeId(blogInfo.getType().getId());
         /*TODO 将获得的tag，赋值给blogInfo对象的List<Tag>，通过调用根据字符串来传，
@@ -89,6 +92,7 @@ public class BlogController {
         blogInfo.setTags(tagService.getTagByString(blogInfo.getTagIds()));
         int i;
         if (blogInfo.getId() == null) {   //id为空，则为新增
+
              i =blogService.saveBlog(blogInfo);
         } else {
            i= blogService.updateBlog(blogInfo);
@@ -108,9 +112,9 @@ public class BlogController {
     @GetMapping("/admin/{id}/input")
     public String gotoEditBlogPage(Model model, @PathVariable Long id){
 
-        BlogInfo blogInfo=blogService.getBlog(id);
+        BlogInfo blogInfo=blogService.findBlogWithTag(id);
         blogInfo.init();
-        System.out.println("我来看看你有没有问题！！！！！："+blogInfo);
+//        System.out.println("我来看看你有没有问题！！！！！："+blogInfo);
         model.addAttribute("blogInfo",blogInfo);
         model.addAttribute("types",typeService.listType());
         model.addAttribute("tags",tagService.listTag());

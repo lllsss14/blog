@@ -36,6 +36,14 @@ public class TypeServiceImpl implements TypeService {
     public List<Type> listType() {
         return typeDao.findAll();
     }
+
+    @Override
+    public List<Type> getBlogType() {
+
+        return typeDao.getBlogType();
+    }
+
+
     /*通过名字获得type*/
     @Override
     public Type getTypeByName(String name) {

@@ -26,4 +26,9 @@ public interface TypeDao  {
 
     @Delete("delete from t_type where id=#{id}")
     public void delete(Long id);
+
+    /*根据t_type.id=t_blog.type_id联合查询，就将主页博客有的类型列在首页右侧，type和博客是多对一的关系*/
+    public List<Type> getBlogType();
+
+
 }

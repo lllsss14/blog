@@ -15,6 +15,7 @@ public class BlogInfo {
      private String picture;
      private String flag;
      private Integer views;
+     private String description;
      private boolean appreciation;
      private boolean copyright;
      private boolean commented;
@@ -68,6 +69,7 @@ public class BlogInfo {
                   ", picture='" + picture + '\'' +
                   ", flag='" + flag + '\'' +
                   ", views=" + views +
+                  ", description='" + description + '\'' +
                   ", appreciation=" + appreciation +
                   ", copyright=" + copyright +
                   ", commented=" + commented +
@@ -77,6 +79,7 @@ public class BlogInfo {
                   ", update_time=" + update_time +
                   ", typeId=" + typeId +
                   ", userId=" + userId +
+                  ", tagIds='" + tagIds + '\'' +
                   ", type=" + type +
                   ", tags=" + tags +
                   ", user=" + user +
