@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhm.dao.TagDao">
+
+    <resultMap id="tag" type="Tag">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <collection property="blogInfos" ofType="BlogInfo"><!--博客和标签多对多的关系-->
+            <id property="id" column="id"/>
+            <result property="title" column="title"/>
+        </collection>
+    </resultMap>
+    
+    <select id="getBlogTag" resultMap="tag">
+        select  * from t_tag t, t_blog b, t_blog_tags bt
+        where t.id = bt.tag_id and b.id = bt.blog_id
+    </select>
+
+    <!--后台进入编辑博客页面，根据博客表、标签表多对多查询查询-->
+    <select id="findTagById" parameterType="Long" resultType="Tag">
+        select * from t_tag where id in(select tag_id from t_blog_tags where blog_id=#{id})
+    </select>
+</mapper>
