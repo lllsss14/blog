@@ -20,4 +20,6 @@ public interface TagService {
 
     /*获得首页博客标签*/
     public List<Tag> getBlogTag();
+
+    public List<Tag> getAllTag();/*后台获得所有标签*/
 }

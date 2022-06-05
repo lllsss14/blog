@@ -112,5 +112,10 @@ public class BlogServiceImpl implements BlogService {
         return blogDao.getAll().size();
     }
 
+    @Override
+    public List<BlogInfo> getByTagId(Long tagId) {
+        return blogDao.getByTagId(tagId);
+    }
+
 
 }

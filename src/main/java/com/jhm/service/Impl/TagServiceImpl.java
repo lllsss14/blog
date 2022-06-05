@@ -59,6 +59,11 @@ public class TagServiceImpl implements TagService {
         return tagDao.getBlogTag();
     }
 
+    @Override
+    public List<Tag> getAllTag() {
+        return tagDao.getAllTag();
+    }
+
     private List<Long> convertToList(String ids) {  /*把前端的tagIds字符串转换为list集合*/
         List<Long> list = new ArrayList<>();
         if (!"".equals(ids) && ids != null) {

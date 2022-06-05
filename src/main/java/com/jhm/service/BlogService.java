@@ -39,6 +39,9 @@ public interface BlogService {
     public int countBlog();
 
 
+    public List<BlogInfo> getByTagId(Long tagId);
+
+
 
 
 }

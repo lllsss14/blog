@@ -20,7 +20,8 @@ public interface BlogDao {
 
     /*查首页博客展示*/
     public List<BlogInfo> getIndexBlog();
-    /*后台进入编辑博客页面，根据博客表、标签表多对多查询*/
+
+    /*后台进入编辑博客页面，根据博客表、标签表多对多查询,得到对应这篇博客的标签*/
     public BlogInfo findBlogWithTag(Long id);
 
     /*前台获取博客详情*/
@@ -34,5 +35,8 @@ public interface BlogDao {
     public List<String> findGroupYear();
     /*根据年份查博客*/
     public List<BlogInfo> findByYear(@Param("year") String year);
+
+    /*根据标签查询博客*/
+    public List<BlogInfo> getByTagId(Long tagId);
 
 }

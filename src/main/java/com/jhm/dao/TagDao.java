@@ -26,6 +26,9 @@ public interface TagDao {
 
     /*获得首页博客标签*/
     public List<Tag> getBlogTag();
+
     /*后台进入编辑博客页面，根据博客表、标签表多对多查询查询*/
     public List<Tag> findTagById(Long id);
+
+    public List<Tag> getAllTag();/*后台获取所有的标签，根据已有博客*/
 }

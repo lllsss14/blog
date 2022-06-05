@@ -82,7 +82,7 @@ public class TypeController {
     public String edit(Type type,@PathVariable Long id,RedirectAttributes attributes){
         Type type1=typeService.getTypeByName(type.getName());
         if(type1!=null){
-            attributes.addFlashAttribute("message","不能更新为已有的类型");
+            attributes.addFlashAttribute("message","不能更新为已有的标签");
             return "redirect:/admin/types/input";
         }
         int i=typeService.updateType(type);

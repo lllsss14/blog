@@ -165,5 +165,15 @@
         select  * from t_blog where DATE_FORMAT(t_blog.update_time, "%Y") = #{year}
     </select>
 
+    <select id="getByTagId" resultMap="blog">
+        select b.*,
+        t.name typename, t.id typeid,
+        t1.name tagname, t1.id tagid,
+        u.nickname, u.avatar
+        from t_blog b, t_type t, t_user u, t_blog_tags tb, t_tag t1
+        where b.type_id = t.id and u.id = b.user_id and tb.blog_id = b.id and tb.tag_id = t1.id and t1.id = #{tagId}
+        order by b.update_time desc
+    </select>
+
 
 </mapper>
