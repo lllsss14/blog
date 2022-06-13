@@ -116,6 +116,4 @@ public class BlogServiceImpl implements BlogService {
     public List<BlogInfo> getByTagId(Long tagId) {
         return blogDao.getByTagId(tagId);
     }
-
-
 }

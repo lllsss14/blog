@@ -57,33 +57,6 @@ public class IndexController {
         model.addAttribute("comments",commentService.getCommentByBlogId(id));
         return "blog";
     }
-//    @GetMapping("/about")
-//    public String about(){
-//        return "about";
-//    }
-//    @GetMapping("/archives")
-//    public String archives(){
-//        return "archives";
-//    }
-//    @GetMapping("/tags")
-//    public String tags(){
-//        return "tags";
-//    }
-//    @GetMapping("/types")
-//    public String typs(){
-//        return "types";
-//    }
-//    @GetMapping("/admin")
-//    public String admin(){
-//        return "admin/admin";
-//    }
-//
-//    @GetMapping("/adminint")
-//    public String adminint(){
-//        return "admin/admin-input";
-//    }
-
-
 }
 
 
